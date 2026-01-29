@@ -9,16 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sanity/client": "^7.14.1",
-    "@sanity/image-url": "^2.0.3",
     "next": "^14.2.35",
-    "next-sanity": "^9.12.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.23",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.6",

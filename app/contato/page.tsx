@@ -9,9 +9,76 @@ export const metadata: Metadata = {
   description: 'Entre em contato com o S.O.S. Gatinhos do Parque. Informações sobre localização, feiras de adoção e redes sociais.',
 }
 
+function generateLocalBusinessJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: ONG_INFO.name,
+    description: ONG_INFO.description,
+    url: 'https://sosgatinhosdoparque.com.br',
+    email: ONG_INFO.pix,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Av. Afonso Pena, 1377 - Centro',
+      addressLocality: 'Belo Horizonte',
+      addressRegion: 'MG',
+      addressCountry: 'BR',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: -19.9245,
+      longitude: -43.9352,
+    },
+    sameAs: [ONG_INFO.social.instagram],
+  }
+}
+
+function generateEventJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: 'Feira de Adoção de Gatinhos',
+    description: 'Feira de adoção de gatos do S.O.S. Gatinhos do Parque. Todos os gatos são castrados e vacinados.',
+    eventSchedule: {
+      '@type': 'Schedule',
+      byDay: 'https://schema.org/Sunday',
+      startTime: '12:00',
+      endTime: '16:00',
+    },
+    location: {
+      '@type': 'Place',
+      name: ONG_INFO.feira.location,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Av. Afonso Pena, 1377 - Centro',
+        addressLocality: 'Belo Horizonte',
+        addressRegion: 'MG',
+        addressCountry: 'BR',
+      },
+    },
+    organizer: {
+      '@type': 'Organization',
+      name: ONG_INFO.name,
+      url: 'https://sosgatinhosdoparque.com.br',
+    },
+    isAccessibleForFree: true,
+  }
+}
+
 export default function ContatoPage() {
+  const localBusinessJsonLd = generateLocalBusinessJsonLd()
+  const eventJsonLd = generateEventJsonLd()
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+      />
       {/* Hero Section */}
       <Section background="verde-dark" className="py-16" showPawDecoration>
         <div className="text-center">

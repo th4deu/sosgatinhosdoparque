@@ -31,7 +31,17 @@ interface MatchPetResponse {
   animals: MatchPetAnimal[]
 }
 
+const MATCHPET_DONATOR_ID = process.env.MATCHPET_DONATOR_ID
+
+if (!MATCHPET_DONATOR_ID) {
+  console.warn('Warning: MATCHPET_DONATOR_ID environment variable is not set')
+}
+
 async function fetchAllCats(): Promise<CatData[]> {
+  if (!MATCHPET_DONATOR_ID) {
+    throw new Error('MATCHPET_DONATOR_ID environment variable is required')
+  }
+
   const response = await fetch('https://api.matchpet.org/animals/filter?view=true', {
     method: 'POST',
     headers: {
@@ -41,7 +51,7 @@ async function fetchAllCats(): Promise<CatData[]> {
     body: JSON.stringify({
       page: 0,
       filter: [
-        { mode: '$eq', comparation_value: '65ef76701f628f3caf17577a', key: 'donator_id' },
+        { mode: '$eq', comparation_value: MATCHPET_DONATOR_ID, key: 'donator_id' },
         { mode: '$eq', comparation_value: 'PENDING', key: 'status' },
       ],
     }),

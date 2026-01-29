@@ -1,32 +1,37 @@
-'use client'
-
-import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Section, { SectionHeader } from '@/components/ui/Section'
 import Button from '@/components/ui/Button'
-import Lightbox from '@/components/ui/Lightbox'
 import { CatData } from '@/lib/matchpet'
+import ErrorMessage from '@/components/ui/ErrorMessage'
 
 interface CatGalleryProps {
   cats: CatData[]
+  hasError?: boolean
 }
 
-export default function CatGallery({ cats }: CatGalleryProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
-
-  const openLightbox = (index: number) => {
-    setLightboxIndex(index)
-    setLightboxOpen(true)
-  }
-
-  const goToPrev = () => {
-    setLightboxIndex((current) => (current - 1 + cats.length) % cats.length)
-  }
-
-  const goToNext = () => {
-    setLightboxIndex((current) => (current + 1) % cats.length)
+export default function CatGallery({ cats, hasError = false }: CatGalleryProps) {
+  if (hasError || cats.length === 0) {
+    return (
+      <Section>
+        <SectionHeader
+          title="Nossos Gatinhos"
+          showPaws
+        />
+        {hasError ? (
+          <ErrorMessage
+            title="Não foi possível carregar"
+            message="Houve um problema ao buscar os gatinhos. Visite nossa feira para conhecê-los pessoalmente!"
+          />
+        ) : (
+          <ErrorMessage
+            title="Nenhum gatinho no momento"
+            message="Todos os gatinhos foram adotados! Visite nossa feira para conhecer novos amiguinhos."
+            showRetry={false}
+          />
+        )}
+      </Section>
+    )
   }
 
   return (
@@ -39,25 +44,25 @@ export default function CatGallery({ cats }: CatGalleryProps) {
 
       {/* Gallery Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
-        {cats.map((cat, index) => (
-          <div key={cat.id} className="bg-white rounded-xl shadow-md overflow-hidden">
-            <button
-              onClick={() => openLightbox(index)}
-              className="relative aspect-square w-full cursor-pointer group"
-              aria-label={`Ver foto de ${cat.name}`}
-            >
+        {cats.map((cat) => (
+          <Link
+            key={cat.id}
+            href={`/adocao/${cat.slug}`}
+            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1 group"
+          >
+            <div className="relative aspect-square w-full">
               <Image
                 src={cat.photo}
                 alt={`Foto de ${cat.name}`}
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 text-white bg-black/50 px-4 py-2 rounded-lg text-sm">
-                  Clique para ampliar
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                <span className="opacity-0 group-hover:opacity-100 text-white bg-verde/80 px-4 py-2 rounded-lg text-sm font-medium">
+                  Conhecer {cat.name}
                 </span>
               </div>
-            </button>
+            </div>
             <div className="p-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-semibold text-verde-dark">{cat.name}</h3>
@@ -66,17 +71,14 @@ export default function CatGallery({ cats }: CatGalleryProps) {
                     ? 'bg-blue-100 text-blue-700'
                     : 'bg-pink-100 text-pink-700'
                 }`}>
-                  {cat.gender}
+                  {cat.gender === 'Macho' ? '♂ Macho' : '♀ Fêmea'}
                 </span>
               </div>
-              <Link
-                href={`/adocao/${cat.slug}`}
-                className="text-verde text-sm hover:underline mt-2 inline-block"
-              >
+              <span className="text-verde text-sm mt-2 inline-block group-hover:underline">
                 Ver perfil
-              </Link>
+              </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -95,17 +97,6 @@ export default function CatGallery({ cats }: CatGalleryProps) {
         </div>
       </div>
 
-      {/* Lightbox */}
-      <Lightbox
-        isOpen={lightboxOpen}
-        onClose={() => setLightboxOpen(false)}
-        imageSrc={cats[lightboxIndex]?.photo || ''}
-        imageAlt={`${cats[lightboxIndex]?.name || ''} - ${cats[lightboxIndex]?.gender || ''}`}
-        onPrev={goToPrev}
-        onNext={goToNext}
-        hasPrev={true}
-        hasNext={true}
-      />
     </Section>
   )
 }

@@ -3,10 +3,11 @@ import Image from 'next/image'
 import Section, { SectionHeader } from '@/components/ui/Section'
 import AdoptionProcess from '@/components/adoption/AdoptionProcess'
 import Requirements from '@/components/adoption/Requirements'
-import CatCard from '@/components/adoption/CatCard'
+import CatFilter from '@/components/adoption/CatFilter'
 import Button from '@/components/ui/Button'
 import { ONG_INFO } from '@/lib/constants'
-import { fetchCats } from '@/lib/matchpet'
+import { fetchCats, CatData } from '@/lib/matchpet'
+import { HeartIcon, PawPrintIcon } from '@/components/ui/Icons'
 
 export const metadata: Metadata = {
   title: 'Adoção de Gatos',
@@ -14,7 +15,14 @@ export const metadata: Metadata = {
 }
 
 export default async function AdocaoPage() {
-  const cats = await fetchCats()
+  let cats: CatData[] = []
+  let hasError = false
+
+  try {
+    cats = await fetchCats()
+  } catch {
+    hasError = true
+  }
 
   return (
     <>
@@ -32,19 +40,67 @@ export default async function AdocaoPage() {
 
       <AdoptionProcess />
 
+      {/* Adoption Importance Section */}
+      <Section background="gray">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl p-8 shadow-lg">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-rosa/20 rounded-full flex items-center justify-center">
+                <HeartIcon className="w-6 h-6 text-rosa" />
+              </div>
+              <h2 className="text-2xl font-display font-bold text-verde-dark">
+                Adotar é um Ato de Amor
+              </h2>
+            </div>
+
+            <div className="space-y-4 text-gray-700">
+              <p>
+                Adotar um gatinho é uma decisão que transforma vidas — tanto a do animal quanto a sua.
+                Cada gato que encontra um lar é uma história de amor que começa.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6 mt-6">
+                <div className="bg-verde/5 rounded-xl p-5">
+                  <h3 className="font-semibold text-verde-dark mb-2 flex items-center gap-2">
+                    <PawPrintIcon className="w-5 h-5 text-verde" />
+                    Responsabilidade
+                  </h3>
+                  <p className="text-sm">
+                    Adotar significa assumir o compromisso de cuidar desse ser por toda a vida dele —
+                    que pode chegar a 20 anos. É uma jornada de amor, paciência e dedicação.
+                  </p>
+                </div>
+
+                <div className="bg-amarelo/20 rounded-xl p-5">
+                  <h3 className="font-semibold text-verde-dark mb-2 flex items-center gap-2">
+                    <HeartIcon className="w-5 h-5 text-rosa" />
+                    Compromisso
+                  </h3>
+                  <p className="text-sm">
+                    Alimentação de qualidade, cuidados veterinários, ambiente seguro e muito carinho
+                    são essenciais. Antes de adotar, certifique-se de que pode oferecer tudo isso.
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-sm text-gray-600 italic mt-4 bg-gray-50 p-4 rounded-lg">
+                &ldquo;Quando você adota, não está apenas salvando uma vida — está ganhando um companheiro
+                que vai te amar incondicionalmente.&rdquo;
+              </p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       {/* Cats Grid */}
       <Section showPawDecoration>
         <SectionHeader
           title="Gatinhos Disponíveis"
-          subtitle={`${cats.length} gatinhos esperando por um lar`}
+          subtitle="Encontre seu novo companheiro"
           showPaws
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cats.map((cat) => (
-            <CatCard key={cat.id} cat={cat} />
-          ))}
-        </div>
+        <CatFilter cats={cats} hasError={hasError} />
 
         <div className="text-center mt-12">
           <p className="text-gray-600 mb-4">

@@ -5,8 +5,55 @@ import Link from 'next/link'
 import Section from '@/components/ui/Section'
 import Button from '@/components/ui/Button'
 import { PawPrintIcon, HeartIcon } from '@/components/ui/Icons'
-import { fetchCatById, fetchOtherCats, fetchCats } from '@/lib/matchpet'
+import { fetchCatById, fetchOtherCats, fetchCats, CatData } from '@/lib/matchpet'
 import CatPhotoGallery from '@/components/adoption/CatPhotoGallery'
+
+function generateBreadcrumbJsonLd(cat: CatData) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Início',
+        item: 'https://sosgatinhosdoparque.com.br',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Adoção',
+        item: 'https://sosgatinhosdoparque.com.br/adocao',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: cat.name,
+        item: `https://sosgatinhosdoparque.com.br/adocao/${cat.slug}`,
+      },
+    ],
+  }
+}
+
+function generateProductJsonLd(cat: CatData) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: cat.name,
+    description: cat.description,
+    image: cat.photos,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'BRL',
+      availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'S.O.S. Gatinhos do Parque',
+      },
+    },
+  }
+}
 
 export async function generateStaticParams() {
   const cats = await fetchCats()
@@ -50,8 +97,19 @@ export default async function CatDetailPage({ params }: { params: Promise<{ slug
     ? `https://wa.me/55${cat.whatsapp}?text=Olá! Gostaria de saber mais sobre o(a) ${cat.name} para adoção.`
     : null
 
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd(cat)
+  const productJsonLd = generateProductJsonLd(cat)
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       {/* Hero Header */}
       <div className="bg-gradient-to-b from-verde-dark to-verde py-8">
         <div className="container mx-auto px-4">

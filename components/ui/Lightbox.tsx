@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 
 interface LightboxProps {
@@ -24,6 +25,12 @@ export default function Lightbox({
   hasPrev = false,
   hasNext = false,
 }: LightboxProps) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -44,20 +51,22 @@ export default function Lightbox({
     }
   }, [isOpen, handleKeyDown])
 
-  if (!isOpen) return null
+  if (!isOpen || !mounted) return null
 
-  return (
+  const lightboxContent = (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+      className="fixed inset-0 flex items-center justify-center bg-black/95"
+      style={{ zIndex: 99999 }}
       onClick={onClose}
     >
       {/* Close Button */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+        className="absolute top-4 right-4 z-10 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-full flex items-center gap-2 transition-colors"
         aria-label="Fechar"
       >
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <span className="text-white text-sm font-medium">Fechar</span>
+        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
@@ -95,11 +104,11 @@ export default function Lightbox({
       )}
 
       {/* Image Container */}
-      <div
-        className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex items-center justify-center p-4"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="relative w-full h-full max-w-4xl max-h-[80vh]">
+      <div className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex items-center justify-center p-4">
+        <div
+          className="relative w-full h-full max-w-4xl max-h-[80vh] cursor-default"
+          onClick={(e) => e.stopPropagation()}
+        >
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -112,12 +121,14 @@ export default function Lightbox({
       </div>
 
       {/* Caption */}
-      <div className="absolute bottom-4 left-0 right-0 text-center">
+      <div className="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
         <p className="text-white/80 text-sm">{imageAlt}</p>
         <p className="text-white/50 text-xs mt-1">
-          Pressione ESC para fechar ou use as setas para navegar
+          Clique fora da imagem ou pressione ESC para fechar
         </p>
       </div>
     </div>
   )
+
+  return createPortal(lightboxContent, document.body)
 }
