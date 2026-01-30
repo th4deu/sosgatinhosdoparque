@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import Section from '@/components/ui/Section'
+import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 import { PawPrintIcon, HeartIcon } from '@/components/ui/Icons'
 import { fetchCatById, fetchOtherCats, fetchCats, CatData } from '@/lib/matchpet'
@@ -112,15 +113,15 @@ export default async function CatDetailPage({ params }: { params: Promise<{ slug
       />
       {/* Hero Header */}
       <div className="bg-gradient-to-b from-verde-dark to-verde py-8">
-        <div className="container mx-auto px-4">
-          <Link href="/adocao" className="text-white/80 hover:text-white flex items-center gap-2 mb-4 transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <Container>
+          <Link href="/adocao" className="text-white/80 hover:text-white inline-flex items-center gap-2 mb-4 transition-colors text-sm">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             Voltar para adoção
           </Link>
-          <div className="flex items-start gap-4">
-            <PawPrintIcon className="w-10 h-10 text-amarelo mt-1" />
+          <div className="flex items-center gap-4">
+            <PawPrintIcon className="w-10 h-10 text-amarelo flex-shrink-0" />
             <div>
               <h1 className="text-4xl md:text-5xl font-display font-bold text-white leading-tight">
                 {cat.name}
@@ -128,7 +129,7 @@ export default async function CatDetailPage({ params }: { params: Promise<{ slug
               <p className="text-white/80 mt-1">Disponível para adoção</p>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
 
       <Section background="white">
