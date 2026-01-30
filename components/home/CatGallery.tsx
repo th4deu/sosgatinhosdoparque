@@ -85,7 +85,7 @@ export default function CatGallery({ cats, hasError = false }: CatGalleryProps) 
       {/* CTA */}
       <div className="text-center bg-gray-50 rounded-xl p-8">
         <p className="text-lg text-gray-700 mb-6">
-          Visite nossa feira aos domingos no Parque Municipal!
+          Acompanhe nossas feiras de adoção pelo Instagram!
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button href="/adocao" variant="primary">

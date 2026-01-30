@@ -12,12 +12,12 @@ export const siteMetadata: Metadata = {
     'gatos para adoção',
     'ONG de gatos',
     'gatos Belo Horizonte',
-    'Parque Municipal BH',
     'adotar gato BH',
     'SOS Gatinhos',
     'resgate de gatos',
     'feira de adoção',
     'apadrinhar gato',
+    'castração de gatos',
   ],
   authors: [{ name: ONG_INFO.name }],
   creator: ONG_INFO.name,
@@ -58,7 +58,7 @@ export function generateJsonLd() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Adoção e Doações',
-      email: ONG_INFO.pix,
+      email: ONG_INFO.email,
     },
   }
 }

@@ -8,11 +8,14 @@ import { PawPrintIcon } from '@/components/ui/Icons'
 
 const photos = [
   { src: '/images/banner-1.jpg', alt: 'Gatinhos do parque' },
-  { src: '/images/banner-2.jpg', alt: 'Voluntários alimentando' },
+  { src: '/images/volunteers-10.jpg', alt: 'Equipe com camisetas da ONG' },
   { src: '/images/banner-3.jpg', alt: 'Feira de adoção' },
-  { src: '/images/banner-4.jpg', alt: 'Gatinho sendo cuidado' },
-  { src: '/images/volunteers-2.jpg', alt: 'Equipe de voluntários' },
-  { src: '/images/volunteers-3.jpg', alt: 'Cuidando dos gatos' },
+  { src: '/images/volunteers-5.jpg', alt: 'Alimentando os gatinhos' },
+  { src: '/images/volunteers-4.jpg', alt: 'Equipe completa reunida' },
+  { src: '/images/banner-2.jpg', alt: 'Voluntários alimentando' },
+  { src: '/images/volunteers-8.jpg', alt: 'Resgate de gatinhos' },
+  { src: '/images/volunteers-6.jpg', alt: 'Equipe no trabalho' },
+  { src: '/images/volunteers-9.jpg', alt: 'Voluntários reunidos' },
 ]
 
 const testimonials = [
@@ -62,12 +65,14 @@ export default function SocialProof() {
       />
 
       {/* Photo Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+      <div className="grid grid-cols-3 gap-3 md:gap-4 mb-12">
         {photos.map((photo, index) => (
           <button
             key={index}
             onClick={() => openLightbox(index)}
-            className="relative aspect-square rounded-xl overflow-hidden shadow-lg group cursor-zoom-in"
+            className={`relative rounded-xl overflow-hidden shadow-lg group cursor-zoom-in ${
+              index === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-square'
+            }`}
           >
             <Image
               src={photo.src}

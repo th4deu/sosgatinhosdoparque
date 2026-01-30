@@ -40,7 +40,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-xl text-white/90 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-              Cuidamos de mais de 300 gatos abandonados no Parque Municipal de BH.
+              Cuidamos de mais de 300 gatos abandonados em Belo Horizonte.
               Você pode fazer a diferença!
             </p>
 
@@ -48,7 +48,7 @@ export default function Hero() {
               <Button href="/adocao" variant="secondary" size="lg">
                 Quero Adotar
               </Button>
-              <Button href="/apoie" variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-verde-dark">
+              <Button href="/apoie" variant="outline-light" size="lg">
                 Fazer Doação
               </Button>
             </div>

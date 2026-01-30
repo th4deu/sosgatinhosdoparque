@@ -46,12 +46,12 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-white/80">
               <li className="flex items-center gap-2">
                 <LocationIcon className="w-5 h-5" />
-                <span>{ONG_INFO.location.name}</span>
+                <span>{ONG_INFO.location.city}, {ONG_INFO.location.state}</span>
               </li>
               <li className="flex items-center gap-2">
                 <EmailIcon className="w-5 h-5" />
-                <a href={`mailto:${ONG_INFO.pix}`} className="hover:text-white">
-                  {ONG_INFO.pix}
+                <a href={`mailto:${ONG_INFO.email}`} className="hover:text-white">
+                  {ONG_INFO.email}
                 </a>
               </li>
             </ul>
@@ -83,7 +83,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} {ONG_INFO.name}. Todos os direitos reservados.
           </p>
           <p className="mt-1">
-            Feito com amor para os gatinhos do Parque Municipal de BH
+            Feito com amor pelos gatinhos de BH
           </p>
         </div>
       </Container>

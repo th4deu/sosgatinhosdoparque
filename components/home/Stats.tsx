@@ -29,7 +29,7 @@ export default function Stats() {
     <Section background="gray">
       <SectionHeader
         title="Nosso Impacto"
-        subtitle="Há quase 20 anos cuidando com amor dos gatinhos abandonados no Parque Municipal de BH"
+        subtitle="Há quase 20 anos cuidando com amor dos gatinhos abandonados em Belo Horizonte"
       />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">

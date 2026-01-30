@@ -28,9 +28,9 @@ export default function CallToAction() {
           </Button>
           <Button
             href={ONG_INFO.social.instagram}
-            variant="outline"
+            variant="outline-light"
             size="lg"
-            className="border-white text-white hover:bg-white hover:text-verde-dark"
+            external
           >
             Instagram
           </Button>

@@ -8,24 +8,34 @@ import { ONG_INFO } from '@/lib/constants'
 
 const gallery = [
   {
-    src: '/images/park-1.jpg',
-    alt: 'Parque Municipal de BH',
-    caption: 'O Parque Municipal, lar dos nossos gatinhos',
+    src: '/images/volunteers-4.jpg',
+    alt: 'Equipe completa da ONG',
+    caption: 'Nossa equipe de voluntários reunida',
   },
   {
     src: '/images/hero-cat.jpg',
-    alt: 'Gatinho do parque',
+    alt: 'Gatinho cuidado pela ONG',
     caption: 'Um dos nossos gatinhos cuidados',
   },
   {
-    src: '/images/park-cat.jpg',
-    alt: 'Gatinho esperando adoção',
-    caption: 'Gatinhos aguardando um lar',
+    src: '/images/volunteers-10.jpg',
+    alt: 'Voluntários com camisetas da ONG',
+    caption: 'Equipe em ação',
   },
   {
     src: '/images/cat-3.jpg',
     alt: 'Gatinho sendo cuidado',
     caption: 'Cuidados diários com amor',
+  },
+  {
+    src: '/images/volunteers-5.jpg',
+    alt: 'Alimentando os gatinhos',
+    caption: 'Alimentação diária',
+  },
+  {
+    src: '/images/park-cat.jpg',
+    alt: 'Gatinho esperando adoção',
+    caption: 'Gatinhos aguardando um lar',
   },
 ]
 
@@ -54,16 +64,16 @@ export default function OngGallery() {
         showPaws
       />
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {gallery.map((item, index) => (
           <button
             key={index}
             onClick={() => openLightbox(index)}
             className={`relative group overflow-hidden rounded-xl cursor-zoom-in ${
-              index === 0 ? 'md:col-span-2 md:row-span-2' : ''
+              index === 0 ? 'col-span-2 row-span-2' : ''
             }`}
           >
-            <div className={`relative ${index === 0 ? 'aspect-square' : 'aspect-video md:aspect-square'}`}>
+            <div className={`relative ${index === 0 ? 'aspect-square' : 'aspect-square'}`}>
               <Image
                 src={item.src}
                 alt={item.alt}

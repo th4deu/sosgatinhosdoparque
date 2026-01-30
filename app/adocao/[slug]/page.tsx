@@ -165,7 +165,7 @@ export default async function CatDetailPage({ params }: { params: Promise<{ slug
                 Quer adotar {cat.name}?
               </h3>
               <p className="text-gray-600 mb-4">
-                Visite nossa feira aos domingos, das 12h às 16h, no Parque Municipal de Belo Horizonte.
+                Acompanhe nossas feiras de adoção pelo Instagram para saber as datas e locais.
                 Você também pode entrar em contato pelo WhatsApp para mais informações.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">

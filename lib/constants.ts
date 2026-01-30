@@ -1,9 +1,10 @@
 export const ONG_INFO = {
   name: 'S.O.S. Gatinhos do Parque',
   shortName: 'SOS Gatinhos',
-  description: 'Voluntariado que cuida de aproximadamente 300 gatos abandonados no Parque Municipal de Belo Horizonte há quase 20 anos.',
-  mission: 'Resgatar, cuidar e encontrar lares para os gatinhos abandonados do Parque Municipal de BH.',
+  description: 'Voluntariado que cuida de aproximadamente 300 gatos abandonados em Belo Horizonte há quase 20 anos.',
+  mission: 'Resgatar, cuidar e encontrar lares para gatinhos abandonados em BH.',
 
+  email: 'contato@sosgatinhosdoparque.com.br',
   pix: 'sosgatinhosdoparque@gmail.com',
 
   social: {
@@ -12,16 +13,21 @@ export const ONG_INFO = {
   },
 
   location: {
-    name: 'Parque Municipal Américo Renné Giannetti',
     city: 'Belo Horizonte',
     state: 'MG',
-    address: 'Av. Afonso Pena, 1377 - Centro, Belo Horizonte - MG',
   },
 
   feira: {
-    day: 'Domingos',
-    time: '12h às 16h',
-    location: 'Coreto do Parque Municipal',
+    info: 'Realizamos feiras de adoção em locais externos. Acompanhe pelo Instagram para saber as próximas datas e locais.',
+    instagram: '@sosgatinhosdoparque',
+  },
+
+  adocao: {
+    requisitos: [
+      'Adotante deve ter 18 anos ou mais',
+      'Residência deve ser telada e segura contra fugas',
+      'Adoção responsável com acompanhamento',
+    ],
   },
 
   stats: {

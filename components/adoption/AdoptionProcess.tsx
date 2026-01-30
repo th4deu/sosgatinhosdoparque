@@ -5,7 +5,7 @@ const steps = [
   {
     number: '1',
     title: 'Visite a Feira',
-    description: 'Domingos, 12h-16h, no Parque Municipal.',
+    description: 'Acompanhe as datas pelo nosso Instagram.',
     Icon: PawIcon,
   },
   {

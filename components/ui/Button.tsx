@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline'
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'outline-light'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 interface ButtonProps {
@@ -20,6 +20,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary: 'bg-verde hover:bg-verde-light text-white',
   secondary: 'bg-amarelo hover:bg-amarelo-light text-verde-dark',
   outline: 'border-2 border-verde text-verde hover:bg-verde hover:text-white',
+  'outline-light': 'border-2 border-white text-white hover:bg-white hover:text-verde-dark',
 }
 
 const sizeStyles: Record<ButtonSize, string> = {

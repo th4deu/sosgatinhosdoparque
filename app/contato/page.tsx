@@ -2,82 +2,39 @@ import { Metadata } from 'next'
 import Section, { SectionHeader } from '@/components/ui/Section'
 import Button from '@/components/ui/Button'
 import { ONG_INFO } from '@/lib/constants'
-import { InstagramIcon, EmailIcon, CatIcon, CalendarIcon, LocationIcon, HeartIcon, MapIcon } from '@/components/ui/Icons'
+import { InstagramIcon, EmailIcon, CatIcon, HeartIcon, CheckIcon } from '@/components/ui/Icons'
 
 export const metadata: Metadata = {
   title: 'Contato',
-  description: 'Entre em contato com o S.O.S. Gatinhos do Parque. Informações sobre localização, feiras de adoção e redes sociais.',
+  description: 'Entre em contato com o S.O.S. Gatinhos do Parque. Informações sobre feiras de adoção e redes sociais.',
 }
 
 function generateLocalBusinessJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'Organization',
     name: ONG_INFO.name,
     description: ONG_INFO.description,
     url: 'https://sosgatinhosdoparque.com.br',
-    email: ONG_INFO.pix,
+    email: ONG_INFO.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Av. Afonso Pena, 1377 - Centro',
       addressLocality: 'Belo Horizonte',
       addressRegion: 'MG',
       addressCountry: 'BR',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: -19.9245,
-      longitude: -43.9352,
     },
     sameAs: [ONG_INFO.social.instagram],
   }
 }
 
-function generateEventJsonLd() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    name: 'Feira de Adoção de Gatinhos',
-    description: 'Feira de adoção de gatos do S.O.S. Gatinhos do Parque. Todos os gatos são castrados e vacinados.',
-    eventSchedule: {
-      '@type': 'Schedule',
-      byDay: 'https://schema.org/Sunday',
-      startTime: '12:00',
-      endTime: '16:00',
-    },
-    location: {
-      '@type': 'Place',
-      name: ONG_INFO.feira.location,
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Av. Afonso Pena, 1377 - Centro',
-        addressLocality: 'Belo Horizonte',
-        addressRegion: 'MG',
-        addressCountry: 'BR',
-      },
-    },
-    organizer: {
-      '@type': 'Organization',
-      name: ONG_INFO.name,
-      url: 'https://sosgatinhosdoparque.com.br',
-    },
-    isAccessibleForFree: true,
-  }
-}
-
 export default function ContatoPage() {
   const localBusinessJsonLd = generateLocalBusinessJsonLd()
-  const eventJsonLd = generateEventJsonLd()
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
       />
       {/* Hero Section */}
       <Section background="verde-dark" className="py-16" showPawDecoration>
@@ -113,7 +70,7 @@ export default function ContatoPage() {
                     Instagram
                   </h3>
                   <p className="text-gray-600 text-sm mb-3">
-                    Veja novidades e gatinhos
+                    Veja novidades, gatinhos e feiras de adoção
                   </p>
                   <a
                     href={ONG_INFO.social.instagram}
@@ -141,10 +98,10 @@ export default function ContatoPage() {
                     Para parcerias e doações
                   </p>
                   <a
-                    href={`mailto:${ONG_INFO.pix}`}
+                    href={`mailto:${ONG_INFO.email}`}
                     className="text-verde font-semibold hover:underline break-all"
                   >
-                    {ONG_INFO.pix}
+                    {ONG_INFO.email}
                   </a>
                 </div>
               </div>
@@ -152,91 +109,44 @@ export default function ContatoPage() {
           </div>
 
           {/* Fair Info */}
-          <div>
+          <div className="space-y-6">
             <div className="bg-gradient-to-br from-verde to-verde-dark rounded-2xl p-8 text-white">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CatIcon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-display font-bold mb-6 text-center">
+              <h3 className="text-2xl font-display font-bold mb-4 text-center">
                 Feira de Adoção
               </h3>
 
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <CalendarIcon className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white/70 text-sm">Quando</p>
-                    <p className="font-semibold">{ONG_INFO.feira.day}, {ONG_INFO.feira.time}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <LocationIcon className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white/70 text-sm">Onde</p>
-                    <p className="font-semibold">{ONG_INFO.feira.location}</p>
-                  </div>
-                </div>
-              </div>
+              <p className="text-white/90 text-center mb-6">
+                {ONG_INFO.feira.info}
+              </p>
 
               <Button
-                href="https://maps.google.com/?q=Parque+Municipal+Américo+Renné+Giannetti+Belo+Horizonte"
+                href={ONG_INFO.social.instagram}
                 variant="secondary"
                 className="w-full"
               >
-                Ver no Mapa
+                Seguir no Instagram
               </Button>
             </div>
-          </div>
-        </div>
-      </Section>
 
-      {/* Location */}
-      <Section background="gray" showPawDecoration>
-        <SectionHeader
-          title="Onde Estamos"
-          subtitle="Parque Municipal de BH"
-          showPaws
-        />
-
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl overflow-hidden shadow-lg">
-            {/* Map Placeholder */}
-            <div className="aspect-video bg-gray-200 flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="w-20 h-20 bg-verde/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MapIcon className="w-10 h-10 text-verde" />
-                </div>
-                <p className="text-gray-600 mb-4">
-                  {ONG_INFO.location.address}
-                </p>
-                <Button
-                  href="https://maps.google.com/?q=Parque+Municipal+Américo+Renné+Giannetti+Belo+Horizonte"
-                  variant="primary"
-                >
-                  Abrir no Google Maps
-                </Button>
-              </div>
-            </div>
-
-            {/* Info */}
-            <div className="p-6 border-t">
-              <div className="grid sm:grid-cols-3 gap-4 text-center">
-                <div>
-                  <p className="text-gray-500 text-sm">Parque</p>
-                  <p className="font-semibold text-verde-dark">{ONG_INFO.location.name}</p>
+            {/* Requisitos */}
+            <div className="bg-verde-dark/5 rounded-2xl p-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-verde rounded-full flex items-center justify-center flex-shrink-0">
+                  <HeartIcon className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-gray-500 text-sm">Cidade</p>
-                  <p className="font-semibold text-verde-dark">{ONG_INFO.location.city}, {ONG_INFO.location.state}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500 text-sm">Feira</p>
-                  <p className="font-semibold text-verde-dark">{ONG_INFO.feira.day}</p>
+                  <h4 className="font-semibold text-verde-dark mb-3">Requisitos para Adoção</h4>
+                  <ul className="space-y-2">
+                    {ONG_INFO.adocao.requisitos.map((requisito, index) => (
+                      <li key={index} className="flex items-start gap-2 text-gray-600 text-sm">
+                        <CheckIcon className="w-5 h-5 text-verde flex-shrink-0 mt-0.5" />
+                        <span>{requisito}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -251,10 +161,10 @@ export default function ContatoPage() {
             <HeartIcon className="w-10 h-10 text-white" />
           </div>
           <h2 className="text-3xl font-display font-bold text-white mb-4">
-            Visite-nos!
+            Adote um Gatinho!
           </h2>
           <p className="text-white/90 mb-8">
-            Domingos no Parque Municipal. Venha conhecer os gatinhos!
+            Acompanhe nossas feiras de adoção pelo Instagram e venha conhecer os gatinhos!
           </p>
           <Button href="/adocao" variant="secondary" size="lg">
             Ver Gatinhos

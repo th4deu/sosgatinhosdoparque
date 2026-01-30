@@ -11,7 +11,7 @@ import { HeartIcon, PawPrintIcon } from '@/components/ui/Icons'
 
 export const metadata: Metadata = {
   title: 'Adoção de Gatos',
-  description: 'Adote um gatinho do Parque Municipal de BH. Conheça nossos felinos disponíveis para adoção e saiba como funciona o processo.',
+  description: 'Adote um gatinho em Belo Horizonte. Conheça nossos felinos disponíveis para adoção e saiba como funciona o processo.',
 }
 
 export default async function AdocaoPage() {
