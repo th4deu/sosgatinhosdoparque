@@ -119,10 +119,10 @@ export default async function CatDetailPage({ params }: { params: Promise<{ slug
             </svg>
             Voltar para adoção
           </Link>
-          <div className="flex items-center gap-4">
-            <PawPrintIcon className="w-10 h-10 text-amarelo" />
+          <div className="flex items-start gap-4">
+            <PawPrintIcon className="w-10 h-10 text-amarelo mt-1" />
             <div>
-              <h1 className="text-4xl md:text-5xl font-display font-bold text-white">
+              <h1 className="text-4xl md:text-5xl font-display font-bold text-white leading-tight">
                 {cat.name}
               </h1>
               <p className="text-white/80 mt-1">Disponível para adoção</p>
